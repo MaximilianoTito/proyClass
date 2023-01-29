@@ -1,0 +1,62 @@
+<div class="card w-96 bg-base-200 shadow-2xl">
+    <div class="card-head label-text text-center">
+        Id del Producto es:
+        <span class="text-green-500 text-base">
+            {{currentEntity.id}}
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="w-full max-w-xs">
+            <figure>
+                <img [src]="currentEntity.images" class="rounded-full h-50 w-50" alt="">
+            </figure>
+            <label class="label">
+                <span class="label-text text-center">Producto</span>
+                <span class="label-text-alt text-red-600">Data</span>
+            </label>
+            <input [(ngModel)]="currentEntity.title" type="text" placeholder="Nombre del producto"
+                class="input input-bordered w-full max-w-xs input-sm border-none" />
+            <label class="label">
+            </label>
+            <label class="label">
+                <span class="label-text">Precio:</span>
+                <span class="label-text-alt text-red-600">Data</span>
+            </label>
+            <input [(ngModel)]="currentEntity.price" type="text" placeholder="Precio del producto"
+                class="input input-bordered w-full max-w-xs input-sm border-none" />
+            <label class="label">
+            </label>
+            <label class="label">
+                <span class="label-text">Descripcion:</span>
+                <span class="label-text-alt text-red-600 border-none">Data</span>
+            </label>
+            <textarea [(ngModel)]="currentEntity.description" placeholder="Descripcion del producto" id="" cols="30"
+                rows="5"></textarea>
+            <div class="btn-group">
+                <label (click)="createProduct()" class="btn btn-success btn-sm text-white rounded-sm">
+                    Enviar
+                </label>
+                <label for="my-modal-3" class="btn btn-error btn-sm text-white rounded-sm">
+                    Eliminar
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+
+<input type="checkbox" id="my-modal-3" class="modal-toggle" />
+<div class="modal">
+    <div class="modal-box relative rounded-sm">
+        <label for="my-modal-3"
+            class="btn btn-sm btn-circle absolute right-2 top-2 bg-red-800 border-red-700">✕</label>
+        <h3 class="text-lg font-bold text-red-700 text-center">Deseas Eliminar: {{currentEntity.title}}</h3>
+        <img [src]="currentEntity.images" class="" alt="">
+        <p class="py-4">¿Estas Seguro? Esto no se podra deshacer</p>
+        <label class="btn btn-success btn-xs rounded-sm text-center"
+            >
+            <span (click)="deleteProduct(currentEntity.id)" class="text-white">Aceptar</span>
+        </label>
+    </div>
+</div>
