@@ -15,7 +15,7 @@ export class FormProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private productHttpService: ProductHttpService,
     private categoryHttpService: CategoryHttpService,
-    private rourer : Router
+    private router: Router
   ) {
   }
 
@@ -69,6 +69,7 @@ export class FormProductComponent implements OnInit {
   //     }
   //   )
   // }
+
   createProduct() {
     const data = {
       title: '',
@@ -85,14 +86,30 @@ export class FormProductComponent implements OnInit {
       });
   }
 
-  products : ProductModel[] = [];
+  save(): void {
+    this.productHttpService.save(this.currentEntity).subscribe(
+      () => {
+        this.currentEntity = {
+          id: 0,
+          title: '',
+          price: 0,
+          description: '',
+          images: [],
+          category: []
+        }
+        this.router.navigate(['/dashboard/product']);
+      }
+    )
+  }
 
-  deleteProduct (id : ProductModel['id']) {
+  products: ProductModel[] = [];
+
+  deleteProduct(id: ProductModel['id']) {
     this.productHttpService.destroy(id).subscribe(
       (response) => {
         this.products.filter(product => product.id != id);
         console.log(`El valor es ${response} se ha eliminado Correctamente`);
-        this.rourer.navigate(['/dashboard/product'])
+        this.router.navigate(['/dashboard/product'])
       }
     )
   }

@@ -15,10 +15,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    //this.getProduct();
     //this.createProduct();
     //this.updateProduct();
-    //this.deleteProduct();
   }
 
   getProducts() {

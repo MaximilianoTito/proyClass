@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { CreateProductDto, ProductModel, UpdateProductDto } from '../entities/product.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,15 @@ import { CreateProductDto, ProductModel, UpdateProductDto } from '../entities/pr
 export class ProductHttpService {
   readonly API_URL = 'https://api.escuelajs.co/api/v1/products';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    ) {
   }
+
+  private httpOptions = {
+    headers : new HttpHeaders({ "Content-Type": "application/json" })
+  }
+
   getAll():Observable<ProductModel[]> {
     const url = `${this.API_URL}`;
     return this.httpClient.get<ProductModel[]>(url);
@@ -40,9 +48,9 @@ export class ProductHttpService {
     return this.httpClient.get<ProductModel>(url);
   }
 
-  save(product : CreateProductDto):Observable<ProductModel>{
+  save(product : ProductModel):Observable<ProductModel>{
     const url = `${this.API_URL}`;
-    return this.httpClient.post<ProductModel>(url, product);
+    return this.httpClient.post<ProductModel>(url, product, this.httpOptions);
   }
  
 }
